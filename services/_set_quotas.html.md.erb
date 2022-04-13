@@ -42,7 +42,7 @@ For a service with multiple plans, the total number of instances created for all
 plans combined cannot exceed the [global quota](#global) for the service.
 <% if vars.product_short == "Tanzu SQL for VMs" %>
 If the plan quota field is blank, the plan quota is set to the global quota by default.
-<%end%>
+<% end %>
 
 When the plan quota is reached, no more instances of that plan can be created
 unless the plan quota is increased or some instances of that plan are deleted.
@@ -61,32 +61,33 @@ To create and set an org-level quota, do the following:
 
 1. Run this command to create a quota for service instances at the org level:
 
-	<pre>
-	cf create-quota QUOTA-NAME -m TOTAL-MEMORY -i INSTANCE-MEMORY -r ROUTES -s SERVICE-INSTANCES --allow-paid-service-plans
-	</pre>
+    ```
+    cf create-quota QUOTA-NAME -m TOTAL-MEMORY -i INSTANCE-MEMORY -r ROUTES -s SERVICE-INSTANCES --allow-paid-service-plans
+    ```
 
-	Where:
-	* `QUOTA-NAME`---A name for this quota
-	* `TOTAL-MEMORY`---Maximum memory used by all service instances combined
-	* `INSTANCE-MEMORY`---Maximum memory used by any single service instance
-	* `ROUTES`---Maximum number of routes allowed for all service instances combined
-	* `SERVICE-INSTANCES`---Maximum number of service instances allowed for the org
+    Where:
 
-	For example:
-	<pre class="terminal">cf create-quota myquota -m 1024mb -i 16gb -r 30 -s 50 --allow-paid-service-plans</pre>
+    * `QUOTA-NAME`---A name for this quota
+    * `TOTAL-MEMORY`---Maximum memory used by all service instances combined
+    * `INSTANCE-MEMORY`---Maximum memory used by any single service instance
+    * `ROUTES`---Maximum number of routes allowed for all service instances combined
+    * `SERVICE-INSTANCES`---Maximum number of service instances allowed for the org
+
+    For example:
+    <pre class="terminal">$ cf create-quota myquota -m 1024mb -i 16gb -r 30 -s 50 --allow-paid-service-plans</pre>
 
 2. Associate the quota you created above with a specific org by running the following command:
 
-	<pre>
+	```
 	cf set-quota ORG-NAME QUOTA-NAME
-	</pre>
+	```
 
 	For example:
 
-	<pre class="terminal">cf set-quota dev_org myquota</pre>
+	<pre class="terminal">$ cf set-quota dev_org myquota</pre>
 
 For more information on managing org-level quotas,
-see [Creating and Modifying Quota Plans](https://docs.pivotal.io/pivotalcf/1-12/adminguide/quota-plans.html).
+see [Creating and Modifying Quota Plans](https://docs.pivotal.io/application-service/adminguide/quota-plans.html).
 
 ## <a id="space"></a> Create and Set Space-level Quotas
 
@@ -105,31 +106,32 @@ To create and set a space-level quota, do the following:
 
 1. Run the following command to create the quota:
 
-	<pre>
-	cf create-space-quota QUOTA-NAME -m TOTAL-MEMORY -i INSTANCE-MEMORY -r ROUTES -s SERVICE-INSTANCES --allow-paid-service-plans
-	</pre>
+    ```
+    cf create-space-quota QUOTA-NAME -m TOTAL-MEMORY -i INSTANCE-MEMORY -r ROUTES -s SERVICE-INSTANCES --allow-paid-service-plans
+    ```
 
-	Where:
-	* `QUOTA-NAME`---A name for this quota
-	* `TOTAL-MEMORY`---Maximum memory used by all service instances combined
-	* `INSTANCE-MEMORY`---Maximum memory used by any single service instance
-	* `ROUTES`---Maximum number of routes allowed for all service instances combined
-	* `SERVICE-INSTANCES`---Maximum number of service instances allowed for the org
+    Where:
 
-	For example:
+    * `QUOTA-NAME`---A name for this quota
+    * `TOTAL-MEMORY`---Maximum memory used by all service instances combined
+    * `INSTANCE-MEMORY`---Maximum memory used by any single service instance
+    * `ROUTES`---Maximum number of routes allowed for all service instances combined
+    * `SERVICE-INSTANCES`---Maximum number of service instances allowed for the org
 
-	<pre class="terminal">cf create-space-quota myspacequota -m 1024mb -i 16gb -r 30 -s 50 --allow-paid-service-plans</pre>
+    For example:
+
+    <pre class="terminal">$ cf create-space-quota myspacequota -m 1024mb -i 16gb -r 30 -s 50 --allow-paid-service-plans</pre>
 
 
 2. Associate the quota you created above with a specific space by running the following command:
 
-	<pre>
-	cf set-space-quota SPACE-NAME QUOTA-NAME
-	</pre>
+    ```
+    cf set-space-quota SPACE-NAME QUOTA-NAME
+    ```
 
-	For example:
+    For example:
 
-	<pre class="terminal">cf set-space-quota myspace myspacequota</pre>
+    <pre class="terminal">$ cf set-space-quota myspace myspacequota</pre>
 
 For more information on managing space-level quotas,
 see [Creating and Modifying Quota Plans](https://docs.pivotal.io/pivotalcf/1-12/adminguide/quota-plans.html).
@@ -158,33 +160,33 @@ are available through the on-demand broker metrics emitted to Loggregator.
 These metrics are listed below:
 
 <table>
-	<tr>
-		<th width=60%><b>Metric Name</b></th>
-		<th width=40%><b>Description</b></th>
-	</tr>
-	<tr>
-		<td><code>on-demand-broker/SERVICE-NAME/quota_remaining</code></td>
-		<td>Quota remaining for all instances across all plans</td>
-	</tr>
-	<tr>
-		<td><code>on-demand-broker/SERVICE-NAME/PLAN-NAME/<br>quota_remaining</code> </td>
-		<td>Quota remaining for a specific plan</td>
-	</tr>
-	<tr>
-		<td><code>on-demand-broker/SERVICE-NAME/total_instances</code> </td>
-		<td>Total instances created across all plans</td>
-	</tr>
-	<tr>
-		<td><code>on-demand-broker/SERVICE-NAME/PLAN-NAME/<br>total_instances</code> </td>
-		<td>Total instances created for a specific plan</td>
-	</tr>
+  <tr>
+    <th width=60%><b>Metric Name</b></th>
+    <th width=40%><b>Description</b></th>
+  </tr>
+  <tr>
+    <td><code>on-demand-broker/SERVICE-NAME/quota_remaining</code></td>
+    <td>Quota remaining for all instances across all plans</td>
+  </tr>
+  <tr>
+    <td><code>on-demand-broker/SERVICE-NAME/PLAN-NAME/<br>quota_remaining</code> </td>
+    <td>Quota remaining for a specific plan</td>
+  </tr>
+  <tr>
+    <td><code>on-demand-broker/SERVICE-NAME/total_instances</code> </td>
+    <td>Total instances created across all plans</td>
+  </tr>
+  <tr>
+    <td><code>on-demand-broker/SERVICE-NAME/PLAN-NAME/<br>total_instances</code> </td>
+    <td>Total instances created for a specific plan</td>
+  </tr>
 </table>
 
 <p class="note"><strong>Note:</strong> Quota metrics are not emitted if no quota
 	has been set.</p>
 
 You can also view service instance usage information in Apps Manager. For more information,
-see [Reporting Instance Usage with Apps Manager](https://docs.pivotal.io/pivotalcf/opsguide/accounting-report-apps-man.html).
+see [Reporting Instance Usage with Apps Manager](https://docs.pivotal.io/application-service/operating/accounting-report-apps-man.html).
 
 ## <a id="calculate"></a> Calculate Resource Costs for On-Demand Plans
 
@@ -223,8 +225,9 @@ selected for the server VMs, as well as the quota for this plan.
 The quota is shown in the **Maximum service instances** field.
 <% end %>
 
-<% # Tabbed table to display image for MySQL, otherwise display image plainly with different alt text for each service. %>
-<% if current_page.data.galera %>
+[//]: # (Tabbed table to display image for MySQL, otherwise display image plainly with different alt text for each service.)
+
+<% if vars.product_short == "Tanzu SQL for VMs" %>
 Click the tabs below to show an example of each plan:
 
 <style>
@@ -318,7 +321,7 @@ VM type for the server VMs set to micro, and persistent disk type for server VMs
 <% end %>
 
 <% if vars.product_short == "Tanzu RabbitMQ" %>
-<%= image_tag("../images/plan-resources.png",
+<%= image_tag("images/plan-resources.png",
 :alt => "Screenshot of an example plan quota configuration showing the plan quota
 field set to 15, RabbitMQ VM type set to micro, and Persistent disk type set to 20 GB",
 :width => "400") %>

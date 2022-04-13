@@ -15,12 +15,12 @@ Log Cache is enabled by default.
 <ol>
   <li>
     Install the cf CLI plugin by running:
-    <pre><code>cf install-plugin -r CF-Community "log-cache"</code></pre>
+    <pre>cf install-plugin -r CF-Community "log-cache"</pre>
   </li>
   <li>
     To access metrics for a service instance, run:
     <% if vars.product_short == "Tanzu SQL for VMs" %>
-        <pre><code>cf tail SERVICE-INSTANCE-NAME</code></pre>
+        <pre>cf tail SERVICE-INSTANCE-NAME</pre>
         Two useful flags to append to this command are:
         <ul>
           <li>
@@ -34,14 +34,14 @@ Log Cache is enabled by default.
           </li>
         </ul>
     <% else %>
-        <pre><code>cf tail SERVICE-INSTANCE-NAME</code></pre>
+        <pre>cf tail SERVICE-INSTANCE-NAME</pre>
     <% end %>
         Where <code>SERVICE-INSTANCE-NAME</code> is the name of your service instance.
         <br><br>
       For example:
 
       <pre class="terminal">
-      <% # Switch output for different services %>
+      <%# Switch output for different services %>
     <% if vars.product_short == "Tanzu SQL for VMs" %>
 $ cf tail -f my-instance | egrep 'connected|available|persistent_disk_used_percent'
 2019-05-17T11:25:59.48-0700 [my-instance] GAUGE /p.mysql/available:1.000000 boolean
@@ -63,7 +63,7 @@ Retrieving logs for service my-instance in org system / space pivotal-services a
     <% end %>
 </pre>
       For more information about the metrics output, see
-    <% # Switch links for different services %>
+    <%# Switch links for different services %>
     <% if vars.product_short == "Tanzu SQL for VMs" %>
       the <a href="#kpi">Key Performance Indicators</a> and <a href="#component-metrics">Component Metrics</a> sections below.
     <% end %>

@@ -1,7 +1,7 @@
-<% # -- This partial is for the Updating Service Plans with UAAC (manage-service-plans-api.html) %>
-<% # and Updating Identity Providers with UAAC (configure-id-providers-api.html) topics. %>
-<% # Before editing make sure the partial makes sense in both contexts. %>
-<% # The if statements in this partial change the scopes needed depending on the topic title. %>
+<%# -- This partial is for the Updating Service Plans with UAAC (manage-service-plans-api.html) %>
+<%# and Updating Identity Providers with UAAC (configure-id-providers-api.html) topics. %>
+<%# Before editing make sure the partial makes sense in both contexts. %>
+<%# The if statements in this partial change the scopes needed depending on the topic title. %>
 
 <p>
 To use the UAAC with your <%= vars.product_full %> service plan, you need an identity zone admin client. To create
@@ -22,7 +22,7 @@ To create a UAA admin client:
 
 <% if current_page.data.title == "Updating Service Plans with UAAC" %>
 2. Using the instructions above, give the admin client the `clients.admin` scope.
-<%end%>
+<% end %>
 
 3. Record the **App ID** and **App Secret**. You need these for the procedure below.
 

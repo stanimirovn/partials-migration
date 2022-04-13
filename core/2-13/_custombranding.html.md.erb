@@ -14,13 +14,17 @@ To configure the **Custom Branding** and **Apps Manager** panes:
 
 1. Enable the **Display Marketplace service plan prices** checkbox to display the prices for your services plans in the Marketplace.
 
+1. Under **Configure how developers access documentation, tools and pluggins when unable to connect to the internet**, select the **Enable access to offline tools** checkbox to allow users to download documentation and cf CLI packages in air-gapped environments. When this option is enabled, the cf CLI installer is included in the Apps Manager BOSH release and updates each time you apply changes in Ops Manager.
+
+1. Under **Choose which CF CLI packages to include**, select either **CF CLI V7** or **CF CLI V8**.
+
 1. Enter the **Supported currencies as JSON** to appear in the Marketplace. Use the format `{ "CURRENCY-CODE": "SYMBOL" }`. This defaults to `{ "usd": "$", "eur": "€" }`.
 
 1. Enter a **Product name** and **Marketplace name** to configure page names.
 
 1. Enter a **Marketplace URL** to point the **Marketplace** link in Apps Manager to your own marketplace.
 
-1. In **Secondary navigation links**, enter link text and URLs to configure secondary navigation links in the **Apps Manager** and **Marketplace** pages. You may configure up to 10 links in the Apps Manager secondary navigation.
+1. In **Secondary navigation links**, enter link text and URLs to configure secondary navigation links in the **Apps Manager** and **Marketplace** pages. You can configure up to 10 links in the Apps Manager secondary navigation.
 
 1. (Optional) In **Apps Manager buildpack**, enter the name of the buildpack you want to use to deploy the Apps Manager app. This buildpack must be for static content. If you do not specify a buildpack, <%= vars.app_runtime_abbr %> uses the detection process to determine a single buildpack to use. For more information about the detection process, see [Buildpack Detection](../buildpacks/understand-buildpacks.html#buildpack-detection) in _How Buildpacks Work_.
 

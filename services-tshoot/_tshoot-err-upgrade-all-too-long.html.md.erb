@@ -1,10 +1,22 @@
-<%= partial vars.path_to_partials + "/troubleshoot-template", locals: {
-
-    id: '',
-
-    description: 'Upgrade All Service Instances Errand Takes Too Long',
-
-    symptom: '
+<a name="upagrade-too-long"></a>
+<table class="nice">
+  <style>
+    main table {
+      table-layout: fixed;
+    }
+  </style>
+  <col width="20%">
+  <col width="80%">
+  <tr>
+  <th colspan="2" style="text-align: left;">
+    <br>
+    Upgrade All Service Instances Errand Takes Too Long
+    <br><br>
+  </th>
+  </tr>
+  <tr>
+    <th>Symptom</th>
+    <td>
     <p>
     Depending on your IaaS and the number of service instances, the
     <a href="#upgrade-all"><code>upgrade-all-service-instances</code></a>
@@ -16,50 +28,43 @@
     You can calculate how long the errand should take by multiplying the number of instances
     by 20 minutes.
     If the errand takes longer than this you might want to take action.
-    </p>',
-
-    cause: '',
-
-    solution: 'If the errand goes on for much longer than the time you calculated above:
-    <ol>
-    <li>
-    <p>
-    <code>ssh</code> onto the errand VM.
     </p>
-    </li>
-    <li>
-    Find the errand output log by running:
-    <pre><code>cd /var/vcap/sys/log</code></pre>
-    </li>
-    <li>
-    Check if the errand is still attempting to upgrade instances by running:
-    <pre><code>tail -f LOG</code></pre>
-    If it is, then allow the errand to continue.
-    </li>
-    <li>
-    <p>
-    If the errand appears to be stuck, cancel the errand task:
-    </p>
-    <ol>
-    <li>
-    <p>
-    Identify the errand task by running:
-    <pre><code>bosh tasks</code></pre>
-    </p>
-    </li>
-    <li>
-    <p>
-    Cancel the errand task by running:
-    <pre><code>bosh cancel-task TASK-ID</code></pre>
-    </p>
-    </li>
-    <li>
-    <p>
-    Retry <a href="#upgrade-all">running the errand</a>.
-    </p>
-    </li>
-    </ol>
-    </li>
-    </ol>
-
-'}%>
+  </td>
+  </tr>
+  <tr>
+    <th>Cause</th>
+    <td><%= cause %></td>
+  </tr>
+  <tr>
+    <th style="vertical-align: top; padding-top: 1em;">Solution</th>
+    <td>
+      If the errand goes on for much longer than the time you calculated above:
+      <ol>
+        <li><code>ssh</code> onto the errand VM.</li>
+        <li>
+          Find the errand output log by running:
+          <pre code="terminal">cd /var/vcap/sys/log</pre>
+        </li>
+        <li>
+          Check if the errand is still attempting to upgrade instances by running:
+          <pre class="terminal">tail -f LOG</pre>
+          If it is, then allow the errand to continue.
+        </li>
+        <li>
+          If the errand appears to be stuck, cancel the errand task:
+          <ol>
+            <li>
+              Identify the errand task by running:
+              <pre class="terminal">bosh tasks</pre>
+            </li>
+            <li>
+              Cancel the errand task by running:
+              <pre class="terminal">bosh cancel-task TASK-ID</pre>
+            </li>
+            <li>Retry <a href="#upgrade-all">running the errand</a>.</li>
+          </ol>
+        </li>
+      </ol>
+    </td>
+  </tr>
+</table>

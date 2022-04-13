@@ -2,7 +2,9 @@ For users familiar with documentation for previous versions of the tile, the tag
 
 The generic log format is as follows:
 
-`<PRI>TIMESTAMP IP_ADDRESS PROGRAM_NAME [job=NAME index=JOB_INDEX id=JOB_ID] MESSAGE`
+```
+<PRI>TIMESTAMP IP_ADDRESS PROGRAM_NAME [job=NAME index=JOB_INDEX id=JOB_ID] MESSAGE
+```
 
 The raw logs look similar to the following:
 
@@ -156,7 +158,6 @@ The following table lists the program names used in the logs:
   </tbody>
 </table>
 
-<% if product_info['local_product_version'] == '1.20' %>
 
 ### <a id='rabbitmq-syslog-custom-rules'></a> Add RabbitMQ Syslog Custom Rules
 
@@ -298,4 +299,3 @@ To add custom rules that keep the same program names as in <%= vars.product_shor
     File="/var/vcap/sys/log/route_registrar/route_registrar.err.log"
     Tag="rabbitmq_route_registrar_stderr")
     ```
-<% end %>
