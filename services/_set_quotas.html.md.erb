@@ -42,7 +42,7 @@ For a service with multiple plans, the total number of instances created for all
 plans combined cannot exceed the [global quota](#global) for the service.
 <% if vars.product_short == "Tanzu SQL for VMs" %>
 If the plan quota field is blank, the plan quota is set to the global quota by default.
-<%end%>
+<% end %>
 
 When the plan quota is reached, no more instances of that plan can be created
 unless the plan quota is increased or some instances of that plan are deleted.
