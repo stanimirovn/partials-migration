@@ -1,0 +1,76 @@
+<%= vars.app_runtime_abbr %> can use Google Cloud Storage (GCS) as its external filestore
+by using either a GCP interoperable storage access key or your GCS Service Account.
+
+To configure file storage for GCP, follow one of these procedures:
+
+* Use an access key and secret key. For more information, see [External Google Cloud Storage
+with Access Key and Secret Key](#manual-storage-key) below.
+
+* Use a service account. For more information, see [External Google Cloud Storage with Service
+Account](#manual-storage-account) below.
+
+#### <a id="manual-storage-key"></a> External Google Cloud Storage with Access Key and Secret Key
+
+To configure file storage for GCP using an access key and secret key:
+
+1. Select **External Google Cloud Storage with access key and secret key**.
+
+1. Enter values for **Access key** and **Secret key**. To obtain the values for these fields:
+  1. In the GCP Console, navigate to the **Storage** tab.
+  1. Click **Settings**.
+  1. Click **Interoperability**.
+  1. If necessary, click **Enable interoperability access**. If interoperability access is
+  already enabled, confirm that the default project matches the project where you are
+  installing <%= vars.app_runtime_abbr %>.
+  1. Click **Create a new key**.
+  1. Copy and paste the generated values into the corresponding <%= vars.app_runtime_abbr %>
+  fields. <%= vars.app_runtime_abbr %> uses these values for authentication when connecting
+  to Google Cloud Storage.
+
+1. Enter the names of the storage buckets you created in [Step 6: Create Database Instance
+and Databases](https://docs.pivotal.io/ops-manager/2-10/gcp/prepare-env-manual.html#dbs) in
+_Preparing to Deploy <%= vars.ops_manager %> on GCP Manually_:
+  * **Buildpacks bucket name:** `PREFIX-<%= vars.platform_code %>-buildpacks`
+  * **Droplets bucket name:** `PREFIX-<%= vars.platform_code %>-droplets`
+  * **Packages bucket name:** `PREFIX-<%= vars.platform_code %>-packages`
+  * **Resources bucket name:** `PREFIX-<%= vars.platform_code %>-resources`
+  <br>
+  <br>
+  Where `PREFIX` is a prefix of your choice, required to make the bucket name unique.
+
+1. Click **Save**.
+
+#### <a id="manual-storage-account"></a> External Google Cloud Storage with Service Account
+
+To configure file storage for GCP using a service account:
+
+<p class='note'><strong>Note:</strong> You can either use the same service account that you
+  created for <%= vars.ops_manager %>, or create a separate service account for <%= vars.app_runtime_abbr %>
+  file storage. To create a separate service account for <%= vars.app_runtime_abbr %> file
+  storage, follow the procedure in <a href="https://docs.pivotal.io/ops-manager/2-10/gcp/prepare-env-manual.html#iam_account">
+  Step 1: Set Up IAM Service Accounts</a> in <em>Preparing to Deploy <%= vars.ops_manager %>
+  on GCP Manually</em>, but only select the <strong>Storage > Storage Admin</strong> role.</p>
+
+1. Select **External Google Cloud Storage with service account**.
+
+1. For **GCP project ID**, enter the Project ID on your GCP Console that you want to use for
+your <%= vars.app_runtime_abbr %> file storage.
+
+1. For **GCP service account email**, enter the email address associated with your GCP account.
+
+1. For **GCP service account key JSON**, enter the account key that you use to access the specified
+GCP project, in JSON format.
+
+1. Enter the names of the storage buckets you created in [Step 7: Create Storage Buckets]
+(https://docs.pivotal.io/ops-manager/2-10/gcp/prepare-env-manual.html#buckets) in _Preparing
+to Deploy <%= vars.ops_manager %> on GCP Manually_:
+  * **Buildpacks bucket name:** `PREFIX-<%= vars.platform_code %>-buildpacks`
+  * **Droplets bucket name:** `PREFIX-<%= vars.platform_code %>-droplets`
+  * **Packages bucket name:** `PREFIX-<%= vars.platform_code %>-packages`
+  * **Resources bucket name:** `PREFIX-<%= vars.platform_code %>-resources`
+  * **Backup bucket name:** `PREFIX-<%= vars.platform_code %>-backup`
+  <br>
+  <br>
+  Where `PREFIX` is a prefix of your choice, required to make the bucket name unique.
+
+1. Click **Save**.

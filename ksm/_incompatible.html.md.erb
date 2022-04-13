@@ -1,0 +1,15 @@
+<% # The below uses the local product variable and math so we do not need to update this page with every release %>
+
+<%
+current_version = product_info['local_product_version']
+previous_version = current_version.to_s.split(".")
+previous_version[1] = (previous_version[1].to_i - 1).to_s
+previous_version = previous_version.join(".")
+%>
+
+<p class="note breaking"><strong>Breaking Change:</strong>
+  This release is incompatible with the v<%= previous_version %> beta release of <%= vars.product_short %>.
+  Before you install <%= vars.product_short %> v<%= current_version %>, you must uninstall
+  <%= vars.product_short %> v<%= previous_version %>.
+  After you install <%= vars.product_short %> v<%= current_version %>, you must re-add your service offerings.
+</p>

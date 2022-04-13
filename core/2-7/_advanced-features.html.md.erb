@@ -1,0 +1,131 @@
+The **Advanced Features** pane includes new functionality that may have certain constraints. Although these features are fully supported, <%= vars.recommended_by %> recommends caution when using them in production environments.
+
+### <a id="disk-memory-overcommit"></a> Diego Cell Memory and Disk Overcommit
+
+If your apps do not use the full allocation of disk space and memory set in the **Resource Config** tab, you might want use this feature. These fields control the amount to overcommit disk and memory resources to each Diego Cell VM.
+
+For example, you might want to use the overcommit if your apps use a small amount of disk and memory capacity compared to the amounts set in the **Resource Config** settings for **Diego Cell**.
+
+<p class="note"><strong>Note:</strong> Due to the risk of app failure and the deployment-specific nature of disk and memory use, <%= vars.recommended_by %> has no recommendation for how much, if any, memory or disk space to overcommit.</p>
+
+To enable overcommit:
+
+1. Select **Advanced Features**.
+
+1. Enter in MB the total desired amount of Diego Cell memory in the **Diego Cell memory capacity** field. See the **Diego Cell** row in the **Resource Config** tab for the current Diego Cell memory capacity settings that this field overrides.
+
+1. Enter in MB the total desired amount of Diego Cell disk capacity in the **Diego Cell disk capacity** field. See the **Diego Cell** row in the **Resource Config** tab for the current Diego Cell disk capacity settings that this field overrides.
+
+1. Click **Save**.
+
+<p class="note"><strong>Note:</strong> Entries made to each of these two fields set the total amount of resources allocated, not the overage.</p>
+
+<% if current_page.data.deployment != "IST" %>
+
+### <a id="rfc_allowlist"></a> Non-RFC-1918 Private Network Allow List
+
+Some private networks require extra configuration so that internal file storage (WebDAV) can communicate with other <%= vars.app_runtime_abbr %> processes. 
+
+The **Non-RFC-1918 private network allow list** field is provided for deployments that use a non-RFC 1918 private network. This is typically a private network other than `10.0.0.0/8`, `172.16.0.0/12`, or `192.168.0.0/16`. 
+
+Most <%= vars.app_runtime_abbr %> deployments do not require any modifications to this field.
+
+To add your private network to the allow list:
+
+1. Select **Advanced Features**.
+
+1. Append a new `allow` rule to the existing contents of the **Non-RFC-1918 private network allow list** field. Include the word `allow`, the network CIDR range to allow, and a semi-colon (`;`) at the end. For example:
+
+	```
+	allow 172.99.0.0/24;
+	```
+   
+1. Click **Save**.
+
+### <a id="cf_cli_timeout"></a> CF CLI Connection Timeout
+
+The **CF CLI connection timeout** field allows you to override the default five-second timeout of the Cloud Foundry Command Line Interface (cf CLI) used within your <%= vars.app_runtime_abbr %> deployment. This timeout affects the cf CLI command used to push <%= vars.app_runtime_abbr %> errand apps such as Notifications, Autoscaler, and Apps Manager.
+
+Set the value of this field to a higher value, in seconds, if you are experiencing domain name resolution timeouts when pushing errands in <%= vars.app_runtime_abbr %>.
+
+To modify the value of the CF CLI connection timeout:
+
+1. Select **Advanced Features**.
+
+1. Enter a value, in seconds, to the **CF CLI connection timeout** field. 
+
+1. Click **Save**.
+
+### <a id='tls'></a> (Optional) Enable TLS for Internal System Database
+
+You can enable TLS for clients of the internal system database. This feature is in beta, and the checkbox is disabled by default. For more information about the internal system database, see [Managing Internal Databases](../opsguide/internal-databases.html).
+
+To enable TLS for clients of the internal system database:
+
+1. Select **Advanced Features**.
+
+1. Select the **Enable TLS for internal system database (beta)** checkbox.
+
+1. Click **Save**.
+
+### <a id="db-connection-limits"></a> Database Connection Limits
+
+You can configure the maximum number of concurrent database connections that Diego and container networking components can have.
+
+To configure the maximum number of concurrent database connections:
+
+1. Select **Advanced Features**.
+
+1. Enter a value in each field beginning with **Maximum number of open connections...** for a given component. The placeholder values for each field are the default values.
+
+1. Click **Save**.
+
+When there are not enough connections available, such as during a time of heavy load, components may experience degraded performance and sometimes failure. To resolve or prevent this, you can increase and fine-tune database connection limits for the component.
+
+<p class="note warning"><strong>Warning:</strong> Decreasing the value of this field for a component may affect the amount of time it takes for it to respond to requests.</p>
+
+### <a id="zdt-app-deployments"></a> (Optional) Rolling App Deployments
+
+You can disable rolling app deployments. For more information, see [Rolling App Deployments](../devguide/deploy-apps/rolling-deploy.html).
+
+To disable rolling app deployments:
+
+1. Select **Advanced Features**.
+
+1. Select the **Disable rolling app deployments** checkbox.
+
+1. Click **Save**.
+
+### <a id='log-cache-max-per-source'></a> Maximum Number of Envelopes Stored in Log Cache Per Source
+
+By default, Log Cache keeps 100,000 envelopes per source. An envelope wraps an event and adds metadata. For sources that produce more than 100,000 envelopes, this default may not provide a long enough duration for you to specify a time period for a historical query.
+
+To set the maximum number of envelopes stored per source above the default:
+
+1. Select **Advanced Features**.
+
+1. Enter the **Maximum number of envelopes stored in Log Cache per source**.
+
+1. Click **Save**.
+
+<% else %>
+
+### <a id='smb'></a> SMB Volume Services
+
+Enabling SMB volume services allows developers to bind existing SMB shares to their apps for shared file access.
+
+To enable SMB volume services:
+
+1. Select **Advanced Features**.
+
+1. Select the **Enable SMB volume services** checkbox.
+
+1. Click **Save**.
+
+1. In the **Errands** pane of the <%= vars.app_runtime_abbr %> tile, set the **SMB Broker Errand** to **On**.
+
+1. Click **Save**.
+
+For more information about SMB volume services, see [Enabling Volume Services](../opsguide/enable-vol-services.html).
+
+<% end %>

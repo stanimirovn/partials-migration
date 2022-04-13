@@ -1,0 +1,81 @@
+This section describes issues resolved in each maintenance release of Native Client v10.2, showing the most recent release first.
+
+### <a id=resolved-issues-nc-v1027></a>Issues Resolved in Native Client 10.2.7
+
+**GEODE-9982, GEM-3509:** Corrected an inconsistency with the client-to-server handshake protocol
+  between disparate versions of the client and server. Native Client version 10.2.7 now works with
+  all versions of GemFire 9.0 and later.
+
+### <a id=resolved-issues-nc-v1026></a>Issues Resolved in Native Client 10.2.6
+
+**GEMNC-508:** Fixed an issue in which applications would download all data from the server when
+registering interest.  This would cause applications to have slow startup as potentially gigabytes
+of data were transfered to the client.
+
+### <a id=resolved-issues-nc-v1025></a>Issues Resolved in Native Client 10.2.5
+
+**GEMNC-505:** Fixed a session state bug wherein session state entries were not being persisted for the full user-specified timeout.
+
+### <a id=resolved-issues-nc-v1024></a>Issues Resolved in Native Client 10.2.4
+
+**GEODE-9412, GEMNC-504:** Fixed a problem with unicode character translation that could cause
+  client apps to crash with an "external component" exception.
+
+### <a id=resolved-issues-nc-v1023></a>Issues Resolved in Native Client 10.2.3
+
+**GEODE-9147, GEMNC-501:** Fixed an issue in the single-hop PutAll operation in which keys were silently dropped when the server bucket locations for the keys were not found.
+The operation now waives the single-hop restriction in this case to ensure that the PutAll operation is completed.
+
+**GEODE-9171, GEMNC-503:** Fixed a memory leak in .NET client applications that occurred on cache closure.
+
+### <a id=resolved-issues-nc-v1022></a>Issues Resolved in Native Client 10.2.2
+
+**GEODE-8887, GEMNC-495:** Tightened up runtime initialization code to eliminate timing-related
+event messaging issues that could, on rare occasions, result in a client data operation being ignored
+on the server.
+
+**GEODE-8892:** Loosened restrictions on log file names to allow characters that are legal in a variety of operating systems.
+
+### <a id=resolved-issues-nc-v1021></a>Issues Resolved in Native Client 10.2.1
+
+**GEMNC-492:** .NET session state provider now correctly parses a `locators` parameter in `Web.config` that specifies multiple locators.
+
+**GEMNC-494, GEODE-8806:** Fixed log rolling code to properly honor file and disk space limits.
+
+### <a id=resolved-issues-nc-v1020></a>Issues Resolved in Native Client 10.2.0
+
+**GEODE-7868:** Added support for autoserializing unsigned types, guids, and decimals.
+
+**GEODE-7930:** Endpoint names are no longer truncated to 99 characters. The Native Client now
+  supports endpoint names that meet the RFC 2181 standard of 255 characters for fully-qualified
+  domain names. This solution also corrects a spurious “Failed to add endpoint” error that was
+  issued when, in fact, no error had occurred.
+
+**GEODE-7944:** Fixed a "No locators available" exception that occurred when subscriptions are enabled and `log-level=debug`.
+
+**GEODE-8015, GEMNC-470:** Added debugging symbols to the released libraries. The Native Client
+  release for Windows now includes a .pdb symbol file. On Linux, the symbols are now embedded in the
+  shared library (.so file).
+
+**GEODE-8053:** Fixed a shutdown hang. The statistics-gathering system’s StatsManager no longer attempts to run on a closed, but not yet destroyed, Cache instance.
+
+**GEODE-8102:** Added support for lazy loading of OpenSSL, significantly improving the developer's experience on Windows when using .NET.
+
+**GEODE-8181:** Changed default setting for `statistic-sampling-enabled` from `true` to `false` to match behavior of the Java client.
+
+**GEODE-8212:** Reduced the number of server connections required to obtain a type ID, improving the performance of PDX deserialization.
+
+**GEODE-8537:** Fixed a memory leak that occurred when LRU eviction was enabled.
+
+**GEODE-8614:** Added a client-side exception for server low memory.
+
+**GEODE-8397, GEODE-8398:** Extended PoolFactory API to support SNI proxy and added SNI support to .NET API.
+
+**GEODE-8441, GEMNC-468:** Fixed an issue where AppDomainContext was initialized too late, generating the exception "Can't pass GCHandle across AppDomains".
+
+**GEODE-8674, GEMNC-488:** Fixed a memory leak that occurred when a DataInput object created using a constructor with a buffer parameter is removed.
+
+**GEODE-8754, GEMNC-485:** Fixed a deserialization error in .NET DataInput::ReadObject.
+
+**GEODE-8773, GEMNC-490:** Fixed bug which caused client PING and CLOSE_CONNECTION calls to implicitly initiate a transaction on servers.
+

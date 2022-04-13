@@ -1,0 +1,54 @@
+In the **UAA** pane, you configure the User Account and Authentication server.
+
+To configure the **UAA** pane:
+
+1. Select **UAA**.
+
+1. Under **UAA database location**, select one of these options:
+  * **Tanzu Application Service database:** Use the same database server that other <%= vars.app_runtime_abbr %> components use. This system database is configured in the **Databases** pane, and it can be either internal or external.
+  * **Other external database:** Use a separate, dedicated database server for UAA.
+    <p class="note warning"><strong>Warning:</strong> Protect whichever database you use in your deployment with a password.</p>
+    <p class="note"><strong>Note:</strong> For GCP installations, <%= vars.company_name %> recommends using an external database on Google Cloud SQL.</p>
+
+1. (Optional) If you selected **Other external database**, complete these fields as follows. Each field includes additional guidance for specific IaaSes and installation methods.
+  * For **Hostname**, enter the hostname of the database server.
+      * **AWS Terraform:** Enter the value of `rds_address` in your Terraform output.
+      * **GCP Terraform:** Enter the value of `sql_db_ip` from your Terraform output.
+  * For **TCP port**, enter the port of the database server.
+      * **AWS Terraform:** Enter the value of `rds_port` in the Terraform output.
+      * **GCP and GCP Terraform:** Enter `3306`.
+  * For **Username**, specify a unique username that can access this specific database on the database server.
+      * **AWS Terraform:** Enter the value of `rds_username` from your Terraform output.
+      * **GCP Terraform:** Enter the value of `<%= vars.app_runtime_abbr_lc %>_sql_username` from your Terraform output.
+  * For **Password**, specify a password for the provided username.
+      * **AWS Terraform:** Enter the value of `rds_password` from your Terraform output.
+      * **GCP Terraform:** Enter the value of `<%= vars.app_runtime_abbr_lc %>_sql_password` from your Terraform output.
+  * For **CA certificate**, enter a certificate to use for encrypting traffic to and from the database.
+    <p class="note"><strong>Note:</strong> The <strong>CA certificate</strong> field only works if your external database hostname matches a name specified in the certificate. This is not true with GCP CloudSQL.</p>
+
+1. (Optional) Under **JWT issuer URI**, enter the URI that UAA uses as the issuer when generating tokens.
+
+1. Under **SAML service provider credentials**, enter a certificate and private key to be used by UAA as a SAML service provider for signing outgoing SAML authentication requests. You can provide an existing certificate and private key from your trusted Certificate Authority or generate a certificate. The domain `*.login.SYSTEM-DOMAIN` must be associated with the certificate, where `SYSTEM-DOMAIN` is the **System domain** you configured in the **Domains** pane.
+  <p class="note"><strong>Note:</strong> The <%= vars.platform_name %> Single Sign-On Service and <%= vars.platform_name %> Spring Cloud Services tiles require the <code>*.login.SYSTEM-DOMAIN</code>.</p>
+
+1. If the private key specified under **SAML service provider credentials** is password-protected, enter the password under **SAML service provider key password**.
+
+1. (Optional) To override the default value, enter a custom SAML Entity ID in the **SAML Entity ID override** field. By default, the SAML Entity ID is `http://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the **System domain** you configured in the **Domains** pane.
+
+1. For **Signature algorithm**, choose an algorithm from the dropdown to use for signed requests and assertions. The default value is **SHA256**.
+
+1. (Optional) In the **Apps Manager access token lifetime**, **Cloud Foundry CLI access token lifetime**, and **Cloud Foundry CLI refresh token lifetime** fields, change the lifetimes of tokens granted for Apps Manager and cf CLI login access and refresh. Most deployments use the defaults.
+
+1. (Optional) In the **Global login session maximum timeout** and **Global login session idle timeout** fields, change the maximum number of seconds before a global login times out. These fields apply to:
+  * **Default zone sessions:**  Sessions in Apps Manager, <%= vars.platform_name %> Metrics, and other web UIs that use the UAA default zones.
+  * **Identity zone sessions:** Sessions in apps that use a UAA identity zone, such as a <%= vars.platform_name %> Single Sign-On service plan.
+
+1. (Optional) Customize the text prompts used for username and password from the cf CLI and Apps Manager login popup by entering values for **Username label** and **Password label**.
+
+1. (Optional) The **Proxy IPs regular expression** field contains a pipe-separated set of regular expressions that UAA considers to be reverse proxy IP addresses. UAA respects the `x-forwarded-for` and `x-forwarded-proto` headers coming from IP addresses that match these regular expressions. To configure UAA to respond properly to Gorouter or HAProxy requests coming from a public IP address, append a regular expression or regular expressions to match the public IP address.
+
+1. (Optional) Disable the **Client basic auth compatibility mode** checkbox to require URL encoding for UAA client basic authentication credentials. By default, the checkbox is enabled and URL encoding is not required. This represents the default behavior of UAA prior to UAA v74.0.0. URL encoding is defined by RFC6749. For more information, see [RFC6749](https://tools.ietf.org/html/rfc6749#section-2.3.1).
+  <p class="note"><strong>Note:</strong> To require URL encoding for certain UAA clients without disabling compatibility mode, use the `X-CF-ENCODED-CREDENTIALS=true` HTTP header.</p>
+  <p class="note warning"><strong>Warning:</strong> If you disable the <strong>Client basic auth compatibility mode</strong> checkbox, URL encoding is required for all UAA client apps in your deployment. To avoid breaking changes, ensure that all client apps support URL encoding before you disable the checkbox.</p>
+
+1. Click **Save**.

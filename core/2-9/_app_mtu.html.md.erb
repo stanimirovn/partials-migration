@@ -1,0 +1,2 @@
+(Optional) For **App network maximum transmission unit**, enter an MTU value in bytes. The default value is `1454`. Some configurations may require a smaller MTU value. For example, networks that use GRE tunnels may require a smaller MTU.<br><br>
+For Azure environments, <%= vars.recommended_by %> recommends entering `1400` or lower to prevent Azure from fragmenting the packets. For more information, see [TCP/IP performance tuning for Azure VMs](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-tcpip-performance-tuning).

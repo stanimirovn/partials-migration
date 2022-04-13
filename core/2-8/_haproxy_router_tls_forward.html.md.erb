@@ -1,0 +1,11 @@
+Under **HAProxy forwards all requests to the Gorouter over TLS**, select **Enable** or **Disable** based on your deployment layout.
+    * To enable communication between HAProxy and the Gorouter:
+      1. Leave **Enable** selected.
+      1. In the **Certificate Authority for HAProxy back end** field, provide the CA that signed the certificate you configured in the **Certificates and private keys for the Gorouter and HAProxy** field.
+        <p class="note"><strong>Note:</strong> If you used the <strong>Generate RSA Certificate</strong> link to generate a certificate, then the CA to specify is the <%= vars.ops_manager %> CA, which you can locate at the <code>/api/v0/certificate_authorities</code> endpoint in the <%= vars.ops_manager %> API.</p>
+      1. Make sure that the Gorouter and HAProxy have TLS cipher suites in common in the **TLS cipher suites for the Gorouter** and **TLS cipher suites for HAProxy** fields.<br />
+      For more information, see [Terminating TLS at the Load Balancer and Gorouter](../adminguide/securing-traffic.html#lb_and_gorouter_term) in _Securing Traffic into <%= vars.app_runtime_abbr %>_, [Providing a Certificate for Your TLS Termination Point](https://docs.pivotal.io/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/operating/security_config.html), and [Using the <%= vars.ops_manager %> API](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/customizing/ops-man-api.html).
+    * To use non-encrypted communication between HAProxy and the Gorouter:
+      1. Select **Disable**.
+      1. If you are not using HAProxy, set the number of HAProxy job instances to `0` in the **Resource Config** pane. For more information, see [Scale Down and Disable Resources](#scale-down).<br />
+    For more information, see [Terminating TLS at the Gorouter Only](../adminguide/securing-traffic.html#gorouter_term) and [Terminating TLS at the Load Balancer Only](../adminguide/securing-traffic.html#lb_term) in _Securing Traffic into <%= vars.app_runtime_abbr %>_.

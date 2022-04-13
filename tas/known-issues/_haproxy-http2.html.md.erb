@@ -1,0 +1,7 @@
+HAProxy is not configured to support HTTP/2 ingress traffic.
+HAProxy also does not send HTTP/2 traffic to the Gorouter, even when HTTP/2 is enabled.
+
+To work around this issue, you can use an external load balancer to support HTTP/2 traffic.
+For more information, see [Configure Load Balancers](https://docs.pivotal.io/application-service/2-12/adminguide/supporting-http2.html#load-balancer) in _Configuring HTTP/2 Support_.
+
+This issue is resolved in <%= vars.app_runtime_abbr %> v2.12.2 and later.

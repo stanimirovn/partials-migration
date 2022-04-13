@@ -1,0 +1,121 @@
+To use an external S3-compatible filestore for <%= vars.app_runtime_abbr %> file storage:
+
+1. Select **External S3-compatible filestore**.
+
+1. For **URL endpoint**, enter the `https://` URL endpoint for your region. For example,
+`https://s3.us-west-2.amazonaws.com/`.
+
+1. Enter the **Access key** and **Secret key** of the `<%= vars.product_name_lc %>-user` you
+created when configuring AWS for <%= vars.platform_name %>.
+
+<% if aws == true %>
+1. (Optional) If your <%= vars.app_runtime_abbr %> deployment is on AWS, you can alternatively
+enter the **Access key** and **Secret key** of the `<%= vars.product_name_lc %>-user` you
+created when configuring AWS for <%= vars.platform_name %>. If you enable the **S3 AWS with
+instance profile** checkbox and also enter an **Access key** and **Secret key**, the instance
+profile overrules the access key and secret key.
+<% end %>
+
+1. From the **S3 signature version** dropdown, select **V4 signature**. For more information
+about S3 signatures, see [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) in the AWS documentation.
+
+1. For **Region**, enter the region in which your S3 buckets are located. For example,
+`us-west-2`.
+
+1. To encrypt the contents of your S3 filestore, select **Server-side encryption**. This
+option is only available for AWS S3.
+
+1. (Optional) If you selected **Server-side encryption**, you can also specify a **KMS key
+ID**. <%= vars.app_runtime_abbr %> uses the KMS key to encrypt files uploaded to the blobstore.
+If you do not provide a KMS Key ID, <%= vars.app_runtime_abbr %> uses the default AWS key. For
+more information, see [Protecting Data Using Server-Side Encryption with AWS KMS–Managed Keys
+(SSE-KMS)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) in the AWS
+documentation.
+
+1. Enter names for your S3 buckets:
+    <table border="1" class="nice">
+      <tr>
+        <th width="30%"><%= vars.ops_manager %> Field</th>
+        <th width="30%">Value</th>
+        <th width="40%">Description</th>
+      </tr>
+      <tr>
+        <td><strong>Buildpacks bucket name</strong></td>
+        <td><code><%= vars.product_name_lc %>-buildpacks-bucket</code><br></td>
+        <td>This S3 bucket stores app buildpacks.</td>
+      </tr>
+      <tr>
+        <td><strong>Droplets bucket name</strong></td>
+        <td><code><%= vars.product_name_lc %>-droplets-bucket</code></td>
+        <td>This S3 bucket stores app droplets. <%= vars.company_name %> recommends that
+          you use a unique bucket name for droplets, but you can also use the same name
+          as above.</td>
+      </tr>
+      <tr>
+        <td><strong>Packages bucket name</strong></td>
+        <td><code><%= vars.product_name_lc %>-packages-bucket</code></td>
+        <td>This S3 bucket stores app packages. <%= vars.company_name %> recommends that
+          you use a unique bucket name for packages, but you can also use the same name
+          as above.</td>
+      </tr>
+      <tr>
+        <td><strong>Resources bucket name</strong></td>
+        <td><code><%= vars.product_name_lc %>-resources-bucket</code></td>
+        <td>This S3 bucket stores app resources. <%= vars.company_name %> recommends that
+          you use a unique bucket name for app resources, but you can also use the same
+          name as above.</td>
+      </tr>
+    </table>
+
+1. Configure these checkboxes depending on whether your S3 buckets have versioning enabled:
+    * For versioned S3 buckets, enable the **Use versioning for backup and restore** checkbox
+    to archive each bucket to a version.<br>
+    If you are using Dell ECS, <%= vars.company_name %> recommends against versioned buckets.
+    For more information, see _Step 3: Configure PAS File Storage_ in [Dell EMC ECS with
+    Pivotal Cloud Foundry](https://www.dellemc.com/resources/en-us/asset/white-papers/products/storage/h17569_wp_ecs_with_pivotal_cloud_foundry_config_guide_and_best_practices.pdf). You can
+    use mirroring as an alternative to versioning.
+    * For unversioned S3 buckets, disable the **Use versioning for backup and restore**
+    checkbox, and enter a backup bucket name for each active bucket. The backup bucket name
+    must be different from the name of the active bucket it backs up. For more information
+    about setting up external S3 blobstores, see [Enable Versioning on Your S3-Compatible
+    Blobstore](https://docs.cloudfoundry.org/bbr/external-blobstores.html#enable-s3-versioning)
+    in _Backup and Restore for External Blobstores_ in the Cloud Foundry documentation.
+
+1. Enter the name of the region in which your backup S3 buckets are located. For example,
+`us-west-2`. These are the buckets used to back up and restore the contents of your S3
+filestore.
+
+1. (Optional) Enter names for your backup S3 buckets:
+    <table border="1" class="nice">
+      <tr>
+        <th width="30%"><%= vars.ops_manager %> Field</th>
+        <th width="30%">Value</th>
+        <th width="40%">Description</th>
+      </tr>
+      <tr>
+        <td><strong>Backup buildpacks bucket name</strong></td>
+        <td><code>buildpacks-backup-bucket</code><br></td>
+        <td>This S3 bucket is used to back up and restore your buildpacks bucket. This bucket
+          name must be different from the buckets you named above.</td>
+      </tr>
+      <tr>
+        <td><strong>Backup droplets bucket name</strong></td>
+        <td><code>droplets-backup-bucket</code></td>
+        <td>This S3 bucket is used to back up and restore your droplets bucket.
+          <%= vars.company_name %> recommends that you use a unique bucket name for droplet
+          backups, but you can also use the same name as above.</td>
+      </tr>
+      <tr>
+        <td><strong>Backup packages bucket name</strong></td>
+        <td><code>packages-backup-bucket</code></td>
+        <td>This S3 bucket is used to back up and restore your packages bucket.
+          <%= vars.company_name %> recommends that you use a unique bucket name for package
+          backups, but you can also use the same name as above.</td>
+      </tr>
+    </table>
+
+1. Click **Save**.
+
+<p class="note"><strong>Note:</strong> For more information about AWS S3 signatures, see
+  <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">
+  Authenticating Requests</a> in the AWS documentation.</p>

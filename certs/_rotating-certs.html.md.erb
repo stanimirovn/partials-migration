@@ -1,0 +1,42 @@
+<% # For information about procedure compatibility, see the document: https://docs.google.com/document/d/1JEk2kJ0l7Wv3zpeZgRsiU1iYjDYWlgy-VO7AcjPXjgY/edit# %>
+
+To rotate the Services TLS CA and its leaf certificates,
+use one of the following procedures:
+
+<ul>
+  <% if vars.product_short == "Redis for Pivotal Platform" %>
+  <li><strong>Ops Manager v2.10:</strong> See
+      <a href="https://docs.pivotal.io/ops-manager/2-10/security/pcf-infrastructure/services_tls_ca_rotate.html">Rotating the Services TLS CA and Its Leaf Certificates</a>.
+  </li>
+  <li><strong>Ops Manager v2.9:</strong> See
+      <a href="https://docs.pivotal.io/ops-manager/2-9/security/pcf-infrastructure/services_tls_ca_rotate.html">Rotating the Services TLS CA and Its Leaf Certificates</a>.
+  </li>
+  <% else %>
+  <li><strong>Ops Manager v2.10:</strong> See
+      <a href="https://docs.pivotal.io/ops-manager/2-10/security/pcf-infrastructure/advanced-certificate-rotation.html#services-rotation">Rotating the Services TLS CA and Its Leaf Certificates</a>.
+  </li>
+  <li><strong>Ops Manager v2.9:</strong> See
+      <a href="https://docs.pivotal.io/ops-manager/2-9/security/pcf-infrastructure/advanced-certificate-rotation.html#services-rotation">Rotating the Services TLS CA and Its Leaf Certificates</a>.
+  </li>
+  <% end %>
+  <li><strong>Ops Manager v2.8:</strong> See
+    <a href="https://docs.pivotal.io/ops-manager/2-8/security/pcf-infrastructure/services_tls_ca_rotate.html">Rotating the Services TLS CA and Its Leaf Certificates</a>.
+  </li>
+  <li><strong>Ops Manager v2.7:</strong> See
+    <a href="https://docs.pivotal.io/ops-manager/2-7/security/pcf-infrastructure/services_tls_ca_rotate.html">Rotating the Services TLS CA and Its Leaf Certificates</a>.
+  </li>
+</ul>
+
+Ops Manager v2.9 and later is compatible with CredHub Maestro.
+<% if vars.product_short == "Tanzu RabbitMQ" %>
+<%= vars.product_short %> v1.20 and later is compatible with CredHub Maestro.
+<% end %>
+<% if vars.product_short == "Tanzu SQL for VMs" %>
+<%= vars.product_short %> v2.8 and later is compatible with CredHub Maestro.
+<% end %>
+<% if vars.product_short == "Redis for Tanzu Application Service" || vars.product_short == "Redis for Pivotal Platform" %>
+<%= vars.product_short %> v2.4 and later is compatible with CredHub Maestro.
+<% end %>
+<% if vars.product_short == "Tanzu GemFire" || vars.product_short == "Pivotal Cloud Cache" %>
+<%= vars.product_short %> v1.11 and later is compatible with CredHub Maestro.
+<% end %>

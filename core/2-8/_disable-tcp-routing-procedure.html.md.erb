@@ -1,0 +1,16 @@
+To disable TCP routing:
+
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard.
+
+1. Click the **<%= vars.app_runtime_full %>** tile.
+
+1. Select **Networking**.
+
+1. Under **TCP routing**, select **Disable**.
+
+1. Remove the TCP routing domain by running:
+
+    ```
+    cf delete-domain DOMAIN
+    ```
+    Where `DOMAIN` is the name of your TCP routing domain.

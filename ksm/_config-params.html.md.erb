@@ -1,0 +1,12 @@
+<p class="note">
+  <strong>Note:</strong> Developers can specify service-specific configuration
+  parameters to override plan and Helm chart values.
+  They pass these parameters using the <code>-c</code> flag when they provision
+  or update a service instance through the cf CLI.
+  The <code>-c</code> flag accepts a JSON object.
+  <br>
+  The JSON configuration values are mapped directly onto the chart values and take
+  precedence over any chart default and plan values.
+  For information about service-specific configuration parameters, see
+  <a href="https://docs.pivotal.io/application-service/devguide/services/managing-services.html#-arbitrary-parameters">Arbitrary Parameters</a>.
+</p>

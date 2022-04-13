@@ -1,0 +1,40 @@
+To configure external databases for your deployment:
+
+1. Ensure that you have a database instance with the following databases created. The steps vary depending on your database type. For an example procedure, see [Creating Databases for <%= vars.app_runtime_abbr %>](./create-pas-dbs.html).
+  * `account`
+  * `app_usage_service`
+  * `autoscale`
+  * `ccdb`
+  * `credhub`
+  * `diego`
+  * `locket`
+  * `networkpolicyserver`
+  * `nfsvolume`
+  * `notifications`
+  * `routing`
+  * `silk`
+  * `uaa`
+
+1. In the <%= vars.app_runtime_abbr %> tile, select **Databases**.
+
+1. Under **System databases location**, select **External databases**.
+  <p class="note"><strong>Note:</strong> If you configure external databases, you cannot configure an internal database in the <strong>UAA</strong> pane.</p>
+
+1. For **Hostname**, enter the hostname of the database server. If you are installing <%= vars.app_runtime_abbr %> using Terraform, this value corresponds to the following variable:
+  * **AWS Terraform**: `rds_address`
+  * **GCP Terraform**: `sql_db_ip`
+
+1. For **TCP port**, enter the port of the database server.
+  * If you are using GCP CloudSQL, enter `3306`.
+  * If you are installing <%= vars.app_runtime_abbr %> on AWS using Terraform, enter the value for `rds_port`.
+
+1. Each component that requires a relational database has two corresponding fields: one for the database username and one for the database password. For each set of fields, specify a unique username that can access this specific database on the database server and a password for the provided username. If you are installing <%= vars.app_runtime_abbr %> using Terraform, these values correspond to the following variables:
+  * **AWS Terraform:** `rds_username` and `rds_password`
+  * **GCP Terraform:** `pas_sql_username` and `pas_sql_password`
+    <p class='note'><strong>Note:</strong> Ensure that the networkpolicyserver database user has the <code>ALL PRIVILEGES</code> permission.</p>
+    <p class="note"><strong>Note:</strong> If you are configuring an external database on GCP or Azure and want to use this database for CredHub, ignore the <strong>CredHub database username</strong> and <strong>CredHub database password</strong> fields. Enter the credentials in the <strong>CredHub</strong> pane instead.</p>
+
+1. (Optional) To enable TLS for your external databases, paste your CA certificate in the **Database CA certificate** field.
+  <p class='note'><strong>Note:</strong> TLS is not currently supported for databases that do not include a matching hostname in their server certificate, such as Azure and GCP, unless you disable hostname verification in <%= vars.app_runtime_abbr %>. You can disable hostname verification for external GCP and Azure databases in the <strong>CredHub</strong> pane. For more information, see <a href="https://cloud.google.com/sql/docs/mysql/external-connection-methods?hl=en_US&_ga=2.66322158.-1313814630.1518122831">Connection Options for External Applications</a> in the GCP documentation.</p>
+
+1. Click **Save**.

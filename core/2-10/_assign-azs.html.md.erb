@@ -1,0 +1,10 @@
+1. Select **Assign AZ and Networks**. These are the Availability Zones (AZs) that you create when configuring BOSH Director.
+
+1. Select an AZ under **Place singleton jobs**. <%= vars.ops_manager %> runs any job with a single instance in this AZ.
+
+1. Select all AZs under **Balance other jobs**. <%= vars.ops_manager %> balances instances of jobs with more than one instance across the AZs that you specify.
+    <p class="note"><strong>Note:</strong> For production deployments, <%= vars.company_name %> recommends at least three AZs for a highly available installation of <%= vars.app_runtime_abbr %>.</p>
+
+1. From the **Network** dropdown, choose the network where you want to run <%= vars.app_runtime_abbr %>.
+
+1. Click **Save**.

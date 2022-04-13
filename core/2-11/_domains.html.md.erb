@@ -1,0 +1,8 @@
+1. Select **Domains**.
+
+1. Enter the system and app domains.
+    * The **System domain** defines your target when you push apps to <%= vars.app_runtime_abbr %>.
+    * The **Apps domain** defines where <%= vars.app_runtime_abbr %> should serve your apps.
+    <p class="note"><strong>Note:</strong> <%= vars.company_name %> recommends that you use the same domain name but different subdomain names for your system and app domains. Doing so allows you to use a single wildcard certificate for the domain while preventing apps from creating routes that overlap with system routes. For example, name your system domain <code>system.EXAMPLE.com</code> and your apps domain <code>apps.EXAMPLE.com</code>.</p>
+
+1. Click **Save**.

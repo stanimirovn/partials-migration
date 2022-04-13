@@ -1,0 +1,7 @@
+To add an older cipher suite to the Gorouter cipher suites:
+
+1. In the **Networking** configuration screen of <%= vars.app_runtime_abbr %>, select either TLS v1.0 or v1.1 in the **Minimum version of TLS supported by the Gorouter and HAProxy** field.
+
+1. Add one or more of the Gorouter-supported cipher suites listed in [TLS v1.0 and v1.1](#tls_10_11) to the existing list of default cipher suites in the **TLS cipher suites for the Gorouter** field.
+
+For more information, see [Configure Networking](../customizing/configure-pas.html#networking) in _Configuring <%= vars.app_runtime_abbr %>_.

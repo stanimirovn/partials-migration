@@ -1,0 +1,21 @@
+<% if product_info['url_prefix'] && !product_info['url_prefix'].include?("ops-manager") %>
+  <li class="">
+    <a class="external-link" href="https://docs.pivotal.io/ops-manager"><strong>Ops Manager Documentation</strong></a>
+  </li>
+<% end %>
+
+<% if product_info['url_prefix'] && !product_info['url_prefix'].include?("application-service") %>
+  <li>
+    <a class="external-link" href="https://docs.pivotal.io/application-service"><strong>Tanzu Application Service Documentation</strong></a>
+  </li>
+<% end %>
+
+<% if product_info['url_prefix'] && !product_info['url_prefix'].include?("tkgi") %>
+  <li>
+    <a class="external-link" href="https://docs.pivotal.io/tkgi/index.html"><strong>Tanzu Kubernetes Grid Integrated Edition Documentation</strong></a>
+  </li>
+<% end %>
+
+<li>
+  <a class="external-link" href="https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html"><strong>Tanzu Kubernetes Grid Documentation</strong></a>
+</li>

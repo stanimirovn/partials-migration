@@ -1,0 +1,12 @@
+In the **Authentication and Enterprise SSO** pane, you configure your user store access.
+
+To configure the **Authentication and Enterprise SSO** pane:
+
+1. Select **Authentication and Enterprise SSO**.
+
+1. To authenticate user sign-ons, your deployment can use one of three types of user database: the UAA server's internal user store, an external SAML identity provider, or an external LDAP server.
+    * To use the internal UAA, select **Internal UAA** and follow the procedure in [Configuring UAA Password Policy](../opsguide/pw-policy.html) to configure your password policy.
+    * To connect to an external identity provider through SAML, select **SAML identity provider** and follow the procedure in [Configure <%= vars.app_runtime_abbr %> to Use a SAML Identity Provider](../opsguide/auth-sso.html#configure-saml) in _Configuring Authentication and Enterprise SSO for <%= vars.app_runtime_abbr %>_.
+    * To connect to an external LDAP server, select **LDAP server** and follow the procedure in [Configure LDAP as an Identity Provider for <%= vars.app_runtime_abbr %>](../opsguide/auth-sso.html#configure-ldap) in _Configuring Authentication and Enterprise SSO for <%= vars.app_runtime_abbr %>_.
+
+1. Click **Save**.

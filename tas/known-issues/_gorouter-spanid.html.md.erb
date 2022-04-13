@@ -1,0 +1,5 @@
+An issue with the Gorouter's implementation of `X-B3-SpanId` and `X-B3-TraceId` headers
+can cause invalid span IDs to be set after updating the `X-B3-TraceId` header to the new 16-byte standard.
+As a result, some applications and libraries invalidate the `X-B3-SpanId` value, breaking traces of the application.
+
+This issue affects versions of <%= vars.app_runtime_abbr %> that contain routing-release v0.227.0 and v0.228.0.

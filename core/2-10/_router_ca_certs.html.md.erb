@@ -1,0 +1,7 @@
+(Optional) When validating requests using mutual TLS to back ends and route services, the Gorouter trusts multiple CAs by default. You can use the following fields to configure which CA certificates Gorouter trusts:
+  - For backwards compatibility with older versions of <%= vars.segment_runtime_full %>:
+      1. Under **Certificate Authorities trusted by the Gorouter for client requests**, select **Trust certs provided in "Certificate Authorities trusted by the Gorouter for back ends and route services"**.
+  - If you want the Gorouter to trust a particular set of CAs only:
+      1. Under **Certificate Authorities trusted by the Gorouter for client requests**, select **Only trust the following Certificate Authorities**.
+      1. Enter the CAs in the field that appears.
+      When this option is selected, the Gorouter only trusts the provided CAs for client requests. It does not trust any well-known CAs that are provided with the stemcell.

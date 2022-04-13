@@ -1,0 +1,11 @@
+
+If you disable the V1 Firehose and you are using a version of the cf CLI earlier than v6.50, you may encounter errors when you push an app or view the logs for an app. The logs exist but are not visible from the cf CLI.
+
+Running the following commands results in errors:
+
+* `cf logs`: `Timeout trying to connect to NOAA`
+* `cf push`: `timeout connecting to log server, no log will be shown`
+
+Despite the log-related errors, `cf push` works correctly and pushes the app.
+
+To avoid encountering errors after disabling the Loggregator V1 Firehose, upgrade to cf CLI v6.50 or later.

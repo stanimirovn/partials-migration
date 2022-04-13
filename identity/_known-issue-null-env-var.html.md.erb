@@ -1,0 +1,3 @@
+* **The SSO service broker can crash if apps do not have any environment variables
+  in the Cloud Controller request payload:**
+  The workaround is to give the app a dummy value in its app manifest file to prevent null values.

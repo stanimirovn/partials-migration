@@ -1,0 +1,18 @@
+To delete a product from your <%= vars.platform_name %> installation:
+
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard.
+
+1. Click the trashcan icon in the bottom-right corner on a product tile.
+
+1. In the **Delete Product** dialog box that appears, click **Confirm**.
+	<p class="note"><strong>Note:</strong> You cannot delete the BOSH Director tile.</p>
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
+
+After you delete a product, the product tile is removed from your <%= vars.platform_name %>
+installation and the <%= vars.ops_manager %> Installation Dashboard. However, if you configured
+your <%= vars.platform_name %> installation to use the <%= vars.product_network %> API, the
+product still appears in the list of available product upgrades in the <%= vars.ops_manager %>
+Installation Dashboard.

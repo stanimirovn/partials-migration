@@ -1,0 +1,72 @@
+This section describes how to configure **Apps Manager** to display information from other foundations in addition to the
+foundation it is installed on.
+
+Given Foundation A on which you want to configure a multi-foundation Apps Manager, and Foundation B that you want to manage from Foundation A's Apps Manager, follow this procedure to enable Foundation A to connect to Foundation B.
+
+To configure multi-foundation support in Apps Manager:
+
+1. Select **Apps Manager** in one of your foundations. The image below shows the **Apps Manager** page:
+    ![The multi-foundation configuration section in the Apps Manager page has several fields](images/multi-foundation-apps-man-configuration.png)
+
+1. For **Multi-foundation configuration (beta)**, enter a JSON object describing the foundations to connect to this foundation. Use data from those foundations' <%= vars.app_runtime_abbr %> configurations. For example:
+
+    ```json
+    {
+      "FOUNDATION-NAME": {
+        "ccUrl": "https://api.FOUNDATION-SYSTEM-DOMAIN.com",
+        "systemDomain": "FOUNDATION-SYSTEM-DOMAIN.com",
+        "usageServiceUrl": "https://app-usage.FOUNDATION-SYSTEM-DOMAIN.com",
+        "invitationsServiceUrl": "https://p-invitations.FOUNDATION-SYSTEM-DOMAIN.com",
+        "logoutUrl": "https://login.FOUNDATION-SYSTEM-DOMAIN.com/logout.do",
+        "metricsUrl": "https://metrics.FOUNDATION-SYSTEM-DOMAIN.com",
+        "uaaUrl": "https://login.FOUNDATION-SYSTEM-DOMAIN.com"
+      },
+    }
+    ```
+    Where:
+    - `FOUNDATION-NAME` is the name of the foundation.
+    - `FOUNDATION-SYSTEM-DOMAIN` is the system domain of the foundation.
+    - `metricsUrl` is optional. Use this field if <%= vars.platform_name %> Metrics is installed on the foundation.
+
+1. In UAA, the `apps_manager_js` client should have Foundation A's Apps Manager URL as a valid redirect URI. This is necessary so that Apps Manager on Foundation A can redirect to Foundation B's UAA and back while logging in. For more information about UAA clients and configuring valid redirect URIs, see [Client.redirect-uri](../uaa/uaa-concepts.html#redirect-uri) in _UAA Concepts_.<br><br>To configure redirect URIs:
+  1. Install the UAA Command Line Interface (UAAC). For more information, see [Creating and Managing Users with the UAA CLI (UAAC)](../uaa/uaa-user-management.html)
+  1. To retrieve the UAA admin client credential for Foundation B:
+    1. Navigate to the <%= vars.ops_manager_full %> Installation Dashboard for Foundation B.
+    1. Click the <%= vars.app_runtime_abbr %> tile.
+    1. Select the **Credentials** tab.
+    1. Under **UAA**, find the **Admin Client Credentials**.
+    1. Click **Link to Credentials**.
+    1. Record the password in the `ADMIN_CLIENT_SECRET` field in the JSON response.
+  1. Retrieve a token for the UAA admin client by running:
+
+      ```
+      uaac target uaa.FOUNDATION-SYSTEM-DOMAIN.com
+      uaac token client get admin -s ADMIN-CLIENT-SECRET
+      ```
+      Where:
+      * `FOUNDATION-B-SYSTEM-DOMAIN` is the system domain of Foundation B.
+      * `ADMIN-CLIENT-SECRET` is the password you recorded in the previous step.
+  1. Retrieve the currently set redirect URIs from Foundation B's UAA `apps_manager_js` client by running:
+
+      ```
+      uaac client get apps_manager_js
+      ```
+      Record the URIs.
+  1. Update the `apps_manager_js` client with Foundation A's Apps Manager URL by running:
+
+      ```
+      uaac client update apps_manager_js --redirect_uri \
+          'PREVIOUS-REDIRECT-URIS,https://apps.FOUNDATION-A-SYSTEM-DOMAIN.com/**'
+      ```
+      Where:
+      * `PREVIOUS-REDIRECT-URIS` are the redirect URIs you recorded in the previous step.
+      * `FOUNDATION-A-SYSTEM-DOMAIN` is the system domain of Foundation A.
+
+1. If Foundation B is configured to use a certificate for TLS termination that is not signed by a globally-trusted CA, you must add the root CA certificate that signed Foundation B's TLS certificate as trusted by Foundation A's BOSH Director. This allows Apps Manager on Foundation A to validate the certificates used on Foundation B's endpoints, such as Foundation B's Cloud Controller). For more information about setting the trusted certificates in BOSH, see [Setting Trusted
+Certificates](../customizing/trusted-certificates.html)
+
+1. (Optional) <%= vars.company_name %> recommends that you configure UAA on all foundations to use the same external SAML identity provider. This allows Apps Manager to automatically log in with your identity provider on each foundation. To configure all foundations to use the same SAML identity provider, ensure all foundations use the same value in the **Provider name** field in the **UAA** pane of the <%= vars.app_runtime_abbr %> tile.
+
+For more information about UAA and identity providers, see [Identity Providers in UAA](../uaa/identity-providers.html).
+
+For more information about how to set up identity providers in UAA, see [Adding Existing SAML or LDAP Users to a <%= vars.app_runtime_abbr %> Deployment](https://docs.pivotal.io/application-service/2-7/operating/external-user-management.html).

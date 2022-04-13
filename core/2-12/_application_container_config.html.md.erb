@@ -1,0 +1,114 @@
+In the **App Containers** pane, you enable microservice frameworks, private Docker registries,
+and other services that support your apps at the container level.
+
+To configure the **App Containers** pane:
+
+1. Select **App Containers**.
+
+1. The **Enable custom buildpacks** checkbox governs the ability to pass a custom buildpack
+URL to the `-b` option of the `cf push` command. By default, this ability is enabled, letting
+developers use custom buildpacks when deploying apps. Disable this option by disabling the
+checkbox. For more information about custom buildpacks, see [Buildpacks](../buildpacks/).
+
+1. The **Allow SSH access to app containers** checkbox controls SSH access to app instances.
+Enable the checkbox to permit SSH access across your deployment, and disable it to prevent
+all SSH access. For more information about SSH access permissions at the space and app scope,
+see [App SSH Overview](../devguide/deploy-apps/app-ssh-overview.html).
+    <p class='note'><strong>Note:</strong> If you are using a load balancer instead of HAProxy,
+      ensure that it has port 2222 open to enable SSH traffic.</p>
+  You can give SSH access to an app only if an admin assigns you a Space Developer role in
+  the space where the app runs. For more information, see [Manage App Space Roles]
+  (../console/console-roles.html#space-roles) in _Managing User Roles with Apps Manager_.
+
+1. To enable SSH access for new apps by default in spaces that allow SSH, select the **Enable
+SSH when an app is created** checkbox. If you disable this checkbox, developers can still
+enable SSH after pushing their apps by running `cf enable-ssh APP-NAME`.
+
+1. Choose how the Gorouter verifies app identity to enable encryption and prevent misrouting
+under **Gorouter app identity verification**:
+<p class='note'><strong>Note:</strong> This feature does not work if the <strong>Disable SSL
+  certificate verification for this environment</strong> checkbox is enabled in the
+  <strong>Networking</strong> pane.</p>
+    * **The Gorouter uses TLS to verify app identity**: Enables the Gorouter to verify app
+    identity using TLS. This is the default option.
+    * **The Gorouter and apps use mutual TLS to verify each other's identity**: Enables your
+    apps and the Gorouter to verify each other's identity using mutual TLS (mTLS). This option
+    disables TCP routing because app containers accept incoming communication only from the
+    Gorouter.
+
+    For more information, see [Preventing Misrouting](../concepts/http-routing.html#consistency)
+    in _HTTP Routing_.
+
+1. You can configure <%= vars.app_runtime_abbr %> to run app instances in Docker containers
+by providing a comma-separated list of their IP address ranges in the **Private Docker insecure
+registry allow list** field. For more information, see [Using Docker Registries](../opsguide/docker-registry.html).
+
+1. Select your preference for **Docker images disk cleanup scheduling on Diego Cell VMs**.
+If you choose **Clean up disk space once usage fills disk**, enter a value in MB for **Reserved
+disk space for other jobs**. This is the amount of space the garbage collection algorithm should
+keep free for other jobs. For more information about the configuration options and how to configure
+a reserved amount, see [Configuring Diego Cell Disk Cleanup Scheduling](../opsguide/config-cell-cleanup.html).
+
+1. The **Enable containerd delegation** checkbox governs whether or not Garden delegates container
+create and destroy operations to the containerd tool. By default, this option is enabled and
+Garden uses containerd. Disable this option by disabling the checkbox. For more information
+about the containerd tool, see [containerd](https://containerd.io).
+
+1. Enter a number in the **Max-in-flight container starts** field. This number configures the
+maximum number of started instances across the Diego Cells in your deployment. Entering `0`
+sets no limit. For more information, see [Set a Maximum Number of Started Containers]
+(configuring.html#container-starts) in _Configuring <%= vars.app_runtime_abbr %> for Upgrades_.
+
+1. Under **NFSv3 volume services**, select **Enable** or **Disable**. NFS volume services allow
+app developers to bind existing NFS volumes to their apps for shared file access. For more
+information, see [Enabling Volume Services](../opsguide/enable-vol-services.html).
+    <p class="note"><strong>Note:</strong> In a fresh install, NFSv3 volume services is enabled
+      by default. In an upgrade, NFSv3 volume services is set to the same setting as it was
+      in the previous deployment.</p>
+
+1. (Optional) To configure LDAP for NFSv3 volume services:
+  * For **LDAP service account user**, enter the username of the service account in LDAP that
+  will manage volume services.
+  * For **LDAP service account password**, enter the password for the service account.
+  * For **LDAP server host**, enter the hostname or IP address of the LDAP server.
+  * For **LDAP server port**, enter the LDAP server port number. If you do not specify a port
+  number, <%= vars.ops_manager %> uses 389.
+  * For **LDAP user search base**, enter the location in the LDAP directory tree from which
+  any LDAP user search begins. The typical LDAP search base matches your domain name.
+  <br>
+  For example, a domain named `cloud.example.com` typically uses the following LDAP user
+  search base: `ou=Users,dc=example,dc=com`.
+  * For **LDAP server CA certificate**, you can optionally enter a certificate if your LDAP
+  server supports TLS and you want to enable TLS connections from the NFS driver to your LDAP
+  server. Paste in the root certificate from your CA certificate or your self-signed certificate.
+  <p class='note'><strong>Note:</strong> UAA can only parse one certificate entered into this
+    field. If you enter multiple certificates, UAA only uses the first one you entered and
+    ignores the rest. You only need to include one root certificate or self-signed certificate.</p>
+
+1. (Optional) To enable SMB volume services, select the **Enable SMB volume services** checkbox.
+Enabling SMB volume services allows developers to bind existing SMB shares to their apps. For
+more information, see [Enabling Volume Services](../opsguide/enable-vol-services.html).
+    <p class="note"><strong>Note:</strong> If you enable SMB volume services, you must set
+      the <strong>SMB Broker Errand</strong> to <strong>On</strong> in the <strong>Errands</strong>
+      pane.</p>
+
+1. (Optional) Modify the **Default health check timeout**. The value configured for this field
+is the amount of time allowed between starting up an app and the first healthy response from
+the app. If the health check does not receive a healthy response within the configured timeout,
+then the app is declared unhealthy. The default timeout is `60` seconds and the maximum configurable
+timeout is `600` seconds.
+    <p class='note warning'><strong>Warning:</strong> If you decrease the default health check
+      timeout value below its current value, existing apps with startup times greater than
+      the new value may fail to start up.</p>
+
+1. (Optional) To limit the number of log lines an app instance can generate per second, select
+**Enable** under **App log rate limit** and enter an integer for **Maximum app log lines
+per second**. At minimum, <%= vars.company_name %> recommends using the default limit of `100`.
+This feature is disabled by default. For more information, see [App Log Rate Limiting]
+(../loggregator/app-log-rate-limits.html).
+    <p class='note'><strong>Note:</strong> In <%= vars.app_runtime_abbr %>, this rate is applied
+      globally across all your apps. If only some of your apps require this setting, see
+      <a href="installing-pcf-is.html#application_containers">App Containers</a> in <em>Installing
+      <%= vars.segment_runtime_full %></em>.</p>
+
+1. Click **Save**.
