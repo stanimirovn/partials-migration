@@ -8,7 +8,7 @@ If the health check process returns HTTP status code `200`, the proxy includes t
 
 When a new or resurrected nodes rejoin the cluster, the proxy continues to route all connections to the currently active node. In the case of failover, the proxy considers all healthy nodes as candidates for new connections.
 
-<%= image_tag("../../images/switchboard-all-healthy.png") %>
+<%= image_tag("../../images/switchboard-all-healthy.png", :alt => "alt text here") %>
 <%# Images require alt text that describes the image in detail. %>
 
 ### <a id="unhealthy"></a> Unhealthy
@@ -21,7 +21,7 @@ This happens when a node becomes non-primary. For more information, see [Cluster
 
 The proxy severs existing connections to newly unhealthy node. The proxy routes new connections to a healthy node, assuming such a node exists. Clients are expected to handle reconnecting on connection failure should the entire cluster become inaccessible.
 
-<%= image_tag("../../images/switchboard-unhealthy.png") %>
+<%= image_tag("../../images/switchboard-unhealthy.png", :alt => "alt text here") %>
 <%# Images require alt text that describes the image in detail. %>
 
 ### <a id="unresponsive"></a> Unresponsive
@@ -72,7 +72,7 @@ To monitor node health using the Switchboard dashboard:
 
 1. If you are prompted, enter the username and password that you recorded in [Log In to the Dashboard](#dashboard-login).
 
-    <%= image_tag(../../"images/switchboard-all-healthy.png") %>
+    <%= image_tag(../../"images/switchboard-all-healthy.png", :alt => "alt text here") %>
     <%# Images require alt text that describes the image in detail. %>
 
 ### <a id="proxy-api"></a> Monitor Node Health Using the API
