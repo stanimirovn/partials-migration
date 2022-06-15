@@ -37,7 +37,7 @@ To configure the **System Logging** pane:
 1. Select the **Enable system metrics** checkbox to emit system-level metrics about all VMs in the deployment. For a list of the VM metrics that the System Metric Agent emits, see [loggregator-agent-release](https://github.com/cloudfoundry/loggregator-agent-release#vm-metrics) repository on GitHub.
 
 1. Select the **Enable V1 Firehose** checkbox to allow logs and metrics to flow to the V1 Firehose.
-  <p class="note"><strong>Note:</strong> If you disable the V1 Firehose, then you must upgrade the cf CLI to v6.50 or later. Earlier versions of the cf CLI return errors when you run the <code>cf push</code> and <code>cf logs</code> commands. For more information, see <a href="https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/release-notes/runtime-rn.html#cf-cli-firehose-errors">Errors Viewing App Logs after Disabling v1 and v2 Firehose</a> in the _PAS Release Notes_.</p>
+  <p class="note"><strong>Note:</strong> If you disable the V1 Firehose, then you must upgrade the cf CLI to v6.50 or later. Earlier versions of the cf CLI return errors when you run the <code>cf push</code> and <code>cf logs</code> commands. For more information, see [Errors Viewing App Logs after Disabling v1 Firehose](../release-notes/runtime-rn.html#cf-cli-firehose-errors) in the _PAS Release Notes_.</p>
 1. Click **Save**.
 
-To configure <%= vars.ops_manager %> for system logging, see [Settings Page](https://docs.pivotal.io/platform/<%= product_info['local_product_version'].to_s.sub('.','-') %>/customizing/pcf-interface.html#settings) section in the _Using the <%= vars.ops_manager %> Interface_.
+To configure <%= vars.ops_manager %> for system logging, see [Settings Page](../customizing/pcf-interface.html#settings) section in the _Using the <%= vars.ops_manager %> Interface_.
